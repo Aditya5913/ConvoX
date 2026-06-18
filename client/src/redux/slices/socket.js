@@ -1,31 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// ✅ Module-level singleton for the actual socket instance
-// (Socket objects are non-serializable and must NOT go into Redux state)
+/*
+  ✅ Socket Singleton Manager
+  (Socket object Redux me store nahi hota)
+*/
 export const socketManager = {
   _socket: null,
-  setSocket(s) {
-    this._socket = s;
+
+  setSocket(socketInstance) {
+    this._socket = socketInstance;
   },
+
   getSocket() {
     return this._socket;
   },
+
+  disconnect() {
+    if (this._socket) {
+      this._socket.disconnect();
+      this._socket = null;
+    }
+  },
 };
 
+/*
+  ✅ Redux State (only serializable data)
+*/
 const initialState = {
-  // ✅ Boolean flag instead of the socket object
-  socket: false,
+  isSocketConnected: false,
   allOnlineUsers: [],
 };
 
-export const socketSlice = createSlice({
-  name: "socketIo",
+/*
+  ✅ Slice
+*/
+const socketSlice = createSlice({
+  name: "socket",
   initialState,
-
   reducers: {
-    // payload: true (connected) | false (disconnected)
-    setSocket: (state, action) => {
-      state.socket = action.payload;
+    setSocketConnection: (state, action) => {
+      state.isSocketConnected = action.payload;
     },
 
     setAllOnlineUsers: (state, action) => {
@@ -34,6 +48,12 @@ export const socketSlice = createSlice({
   },
 });
 
-export const { setSocket, setAllOnlineUsers } = socketSlice.actions;
+/*
+  ✅ Export actions
+*/
+export const { setSocketConnection, setAllOnlineUsers } = socketSlice.actions;
 
+/*
+  ✅ Export reducer
+*/
 export default socketSlice.reducer;
