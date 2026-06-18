@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+body{
+    overflow: hidden;
+}
+
+::-webkit-scrollbar{
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #facc15;
+    border-radius: 10px;
+}
