@@ -89,8 +89,8 @@ const SideBar = ({ setChatUserId, chatUserId }) => {
         {/* Logo */}
         <div className="h-[20%]">
           <h2 className="font-semibold text-3xl text-cyan-300 flex items-center">
-            <p>Vartala</p>
-            <p className="text-5xl text-yellow-400 animate-bounce">P</p>
+            <p>Convo</p>
+            <p className="text-5xl text-yellow-400 animate-bounce">x</p>
           </h2>
 
           {/* Search */}
